@@ -1,0 +1,35 @@
+{
+  "name": "kaposter",
+  "version": "1.0.0",
+  "description": "A memorial application which comforts during tough times",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ejs views -o ./app --ext .html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/storage-blob": "^12.18.0",
+    "@google-cloud/vision": "^4.3.0",
+    "axios": "^1.6.8",
+    "bad-words": "^3.0.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.17.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "profanity-filter": "^0.2.1",
+    "tailwindcss": "^3.4.3",
+    "uuid": "^9.0.1"
+  }
+}

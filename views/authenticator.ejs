@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Authenticator</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background gradient */
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            /* Custom text color */
+            color: rgb(253, 207, 113);
+            font-family: "Raleway", sans-serif;
+            font-weight: bold;
+            padding: 20px;
+            text-align: left;
+        }
+        @font-face {
+    font-family: myFirstFont;
+    src: url('/sansation/Sansation_Regular.ttf');
+}
+h1{
+    font-family: myFirstFont;
+}
+
+        .custom-input {
+            background-color: transparent;
+            border: 2px solid rgb(253, 207, 113);
+            color: rgb(253, 207, 113);
+        }
+
+        .custom-input::placeholder {
+            color: rgba(253, 207, 113, 0.7);
+        }
+
+        .custom-button {
+            background-color: rgb(253, 207, 113);
+            color: #140000;
+            border: 2px solid rgb(253, 207, 113);
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mx-auto p-6">
+        <div class="header text-center mb-8">
+            <h1 class="text-4xl font-bold">Kaposter</h1>
+            <p class="text-lg italic">"Where Memories Live Forever"</p>
+        </div>
+
+        <div class="description text-left text-lg leading-relaxed mb-8">
+            <p>Dear Friends, As we gather here, let’s remember our dear friend who is no longer with us. Share photos, messages, and memories to celebrate his life. Your words and snapshots will keep his spirit alive. With warmth and gratitude.</p>
+        </div>
+
+        <!-- Form to authenticate user -->
+        <form action="/authenticate/<%= personId %>/verify" method="POST" class="max-w-md mx-auto bg-white bg-opacity-10 p-8 rounded-lg shadow-lg">
+            <div class="mb-6">
+                <label for="password" class="block text-left mb-2 text-xl">Enter the Given Code:</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password" class="custom-input w-full p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+            </div>
+
+            <button type="submit" class="custom-button w-full p-4 rounded-lg text-lg font-semibold">Get Started</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Person</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
+    <style>
+        /* Custom background gradient */
+        @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+    
+        .edit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: rgb(253, 207, 113);
+        }
+    
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: myFirstFont;
+            padding: 20px;
+        }
+    
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: rgb(253, 207, 113);
+            text-align: center;
+        }
+    
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    
+        label {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+    
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            background-color: rgba(253, 207, 113, 0.2);
+            border: 2px solid rgb(253, 207, 113);
+            color: rgb(253, 207, 113);
+            padding: 8px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            width: calc(100% - 20px);
+        }
+    
+        input[type="text"]::placeholder,
+        input[type="date"]::placeholder,
+        textarea::placeholder {
+            color: rgb(253, 207, 113);
+        }
+    
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(53%) sepia(98%) saturate(752%) hue-rotate(347deg) brightness(99%) contrast(106%);
+        }
+    
+        .profile-image-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 16px;
+            cursor: pointer;
+        }
+    
+        #profileImageSVG {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        #profileImagePreview {
+            position: absolute;
+            top: 58%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .custom-button {
+            background-color: rgb(253, 207, 113);
+            color: #520505;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .custom-file-label {
+            background-color: rgb(253, 207, 113);
+            color: #140000;
+            border: 2px solid rgb(253, 207, 113);
+            padding: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+        }
+    
+        .custom-file-label svg {
+            height: 100%;
+            width: auto;
+        }
+    
+        .dob-dod-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+    
+        .dob-dod-wrapper div {
+            flex: 1;
+        }
+    
+        button {
+            background-color: rgb(253, 207, 113);
+            color: #140000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        button:hover {
+            background-color: rgba(253, 207, 113, 0.8);
+        }
+    
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+    
+        .overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    
+        .preview-content {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            padding: 20px;
+            border-radius: 8px;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+        }
+    
+        .preview-image-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 16px;
+        }
+    
+        .preview-image {
+            position: absolute;
+            top: 58%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 135px;
+            height: 135px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .preview-image-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>    
+</head>
+
+<body>
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <h1>Kaposter</h1>
+        <form id="createPersonForm">
+            <p class="text-sm mb-2">Click the frame to upload a profile image</p>
+            <div class="profile-image-wrapper">
+                <img id="profileImageSVG" src="/images/photo_frame.svg" alt="Choose profile image" style="cursor: pointer;">
+                <img id="profileImagePreview" src="" alt="Profile image preview" style="display: none;">
+                <input id="profileImage" name="profileImage" type="file" style="display: none;">
+            </div>            
+            
+
+            <input id="name" name="name" type="text" placeholder="Name" required>
+            <div class="dob-dod-wrapper">
+                <div>
+                    <label for="dob">Date of Birth</label>
+                    <input id="dob" name="dob" type="date" required>
+                </div>
+                <div>
+                    <label for="dod">Date of Death</label>
+                    <input id="dod" name="dod" type="date" required>
+                </div>
+            </div>
+            <textarea id="message" name="message" placeholder="Message..." rows="4"></textarea>
+            <input id="autoGeneratedPassword" name="autoGeneratedPassword" type="hidden"> <!-- Hidden input for auto-generated password -->
+
+            <!-- Hide the actual file input -->
+            <input id="profileImage" name="profileImage" type="file" style="display: none;">
+
+            <!-- Add the preview button -->
+            <button type="button" id="previewButton" class="mt-4">Preview</button>
+        </form>
+    </div>
+
+    <!-- Add the HTML structure for the overlay and the preview content -->
+    <div class="overlay">
+        <div class="preview-content">
+            <i class="fas fa-edit fa-2x edit-button" id="editOverlayButton"></i> 
+            <div class="profile-image-wrapper">
+                <img id="previewImageSVG" src="/images/photo_frame.svg" class="preview-image-svg" alt="Choose profile image">
+                <img id="previewImage" class="preview-image" src="" alt="Preview image">
+            </div>              
+            <p><strong>Name:</strong> <span id="previewName"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="previewDob"></span></p>
+            <p><strong>Date of Death:</strong> <span id="previewDod"></span></p>
+            <p><strong>Message:</strong> <span id="previewMessage"></span></p>
+            <button id="closePreview" class="mt-4 custom-button">Close Preview</button>
+            <br>
+            <button id="continueInOverlay" class="mt-4 custom-button">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        async function fetchAdminPageId() {
+            try {
+                const response = await fetch('/getAdminSession', { method: 'GET' });
+                const data = await response.json();
+                return data.adminPageId;
+            } catch (error) {
+                console.error('Error fetching adminPageId:', error);
+                return null;
+            }
+        }
+    
+        document.getElementById('createPersonForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const randomPassword = Math.floor(100000 + Math.random() * 900000);
+    formData.set('autoGeneratedPassword', randomPassword);
+
+    try {
+        const adminPageId = await fetchAdminPageId();
+        if (!adminPageId) {
+            throw new Error('Failed to fetch adminPageId');
+        }
+
+        formData.append('adminPageId', adminPageId);
+
+        const response = await fetch('/createPerson', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to create person');
+        }
+
+        alert('Person created successfully');
+        form.reset();
+
+        window.location.href = `/admin/${adminPageId}`;
+    } catch (error) {
+        console.error('Error creating person:', error);
+        alert(`Failed to create person. Please try again later. ${error.message}`);
+    }
+});    
+        document.querySelector('.profile-image-wrapper').addEventListener('click', () => {
+            document.getElementById('profileImage').click();
+        });
+    
+        document.getElementById('profileImage').addEventListener('change', () => {
+            const file = document.getElementById('profileImage').files[0];
+            const fileURL = URL.createObjectURL(file);
+            document.getElementById('profileImagePreview').src = fileURL;
+            document.getElementById('profileImagePreview').style.display = "block";
+        });
+    
+        document.getElementById('previewButton').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const dob = formatDate(document.getElementById('dob').value);
+            const dod = formatDate(document.getElementById('dod').value);
+            const message = document.getElementById('message').value;
+            const profileImagePreview = document.getElementById('profileImagePreview').src;
+    
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewDob').textContent = dob;
+            document.getElementById('previewDod').textContent = dod;
+            document.getElementById('previewMessage').textContent = message;
+    
+            if (profileImagePreview) {
+                document.getElementById('previewImage').src = profileImagePreview;
+                document.getElementById('previewImage').style.display = "block";
+            } else {
+                document.getElementById('previewImage').style.display = 'none';
+            }
+    
+            document.querySelector('.overlay').classList.add('open');
+        });
+    
+        document.getElementById('editOverlayButton').addEventListener('click', () => {
+            document.querySelector('.overlay').classList.remove('open');
+        });
+    
+        document.getElementById('closePreview').addEventListener('click', () => {
+            document.querySelector('.overlay').classList.remove('open');
+        });
+    
+        document.getElementById('continueInOverlay').addEventListener('click', () => {
+            document.getElementById('createPersonForm').dispatchEvent(new Event('submit'));
+        });
+    
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-GB', options);
+        }
+    </script>        
+</body>
+
+</html>

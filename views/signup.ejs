@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background gradient */
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: "Raleway", sans-serif;
+            font-weight: bold;
+        }
+        @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+        h1 {font-family: myFirstFont;}
+        /* Custom input styles */
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            background-color: transparent;
+            border: 2px solid rgb(253, 207, 113);
+            color: rgb(253, 207, 113);
+            width: 100%;
+            max-width: 320px; /* You can adjust this width if needed */
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.8rem;
+        }
+
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder,
+        input[type="text"]::placeholder {
+            color: rgb(253, 207, 113);
+        }
+
+        /* Custom button styles */
+        button[type="submit"] {
+            background-color: rgb(253, 207, 113);
+            color: #140000;
+            border: 2px solid rgb(253, 207, 113);
+            width: 100%;
+            max-width: 320px; /* Match the width of the input fields */
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.8rem;
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgba(253, 207, 113, 0.8);
+        }
+
+        .icon {
+            color: rgb(253, 207, 113);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .icon:hover {
+            color: rgba(253, 207, 113, 0.8);
+        }
+
+        .signup-text {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .signup-text p {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <h1 class="text-4xl font-bold mb-4">Kaposter</h1>
+        <p class="text-lg mb-8">"Where Memories Live Forever"</p>
+        <h3 class="text-2xl mb-4">Sign up</h3>
+        <form id="signupForm" action="/signup" method="POST" class="flex flex-col items-center w-full max-w-md">
+            <input type="email" id="email" name="email" required placeholder="Email"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <input type="text" id="username" name="username" required placeholder="Username"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <input type="password" id="password" name="password" required placeholder="Password"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <button type="submit" class="px-4 py-2 rounded-md transition-colors duration-300">Signup</button>
+        </form>
+        <div class="flex justify-center mt-4">
+            <button id="google-signin-button" class="px-4 py-2 rounded-md transition-colors duration-300">
+                <i class="fab fa-google icon"></i>
+            </button>
+        </div>
+        <div class="signup-text mt-4">
+            <p>Already have an account?</p>
+            <button id="loginButton" class="underline"> <b> Sign in </b></button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginButton').addEventListener('click', () => {
+            window.location.href = '/'; // Redirect to login page
+        });
+        <!-- Inside signup.ejs -->
+document.getElementById('google-signin-button').addEventListener('click', () => {
+    // Redirect to the Google sign-in page using the environment variable
+    window.location.href = '<%= GOOGLE_AUTH %>';
+});
+
+
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Simple validation to check if fields are not empty
+            if (!email.trim() || !username.trim() || !password.trim() || !confirmPassword.trim()) {
+                alert('Please enter all required fields.');
+                return;
+            }
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please enter matching passwords.');
+                return;
+            }
+
+            // Check if password meets the strength criteria
+            const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])(?=.*[^\da-zA-Z]).{8,}$/;
+            if (!strongPasswordRegex.test(password)) {
+                alert('Password should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, username, password })
+                });
+
+                if (response.ok) {
+                    alert('Signup successful! You can now login.');
+                    window.location.href = '/'; // Redirect to login page after signup
+                } else {
+                    const contentType = response.headers.get('Content-Type');
+                    const errorText = await response.text();
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = JSON.parse(errorText);
+                        alert(errorData.message || 'Signup failed');
+                    } else {
+                        console.error('Signup failed with response:', errorText);
+                        alert('Signup failed. Please try again later.');
+                    }
+                }
+            } catch (error) {
+                console.error('Error during signup:', error.message);
+                alert('Signup failed. Please try again later.');
+            }
+        });
+    </script>
+</body>
+</html>

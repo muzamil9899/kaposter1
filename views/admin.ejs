@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@heroicons/react/outline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        /* Global styles */
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: myFirstFont;
+            padding: 20px;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: rgb(253, 207, 113);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            display: none;
+        }
+
+        .sidenav a,
+        .sidenav .admin-details {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #282828;
+            display: block;
+            transition: 0.3s;
+        }
+        
+
+        .sidenav a:hover {
+            color: hsl(0, 0%, 0%);
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 72px;
+            margin-left: 50px;
+        }
+
+        .logout-btn {
+            color: #FFFFFF;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-top: auto;
+            transition: background-color 0.3s, color 0.3s;
+            position: absolute;
+bottom: 20px;
+left: 20px;
+
+        }
+
+        .logout-btn:hover {
+            background-color: #ff0000;
+        }
+
+        .main-content {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        .bg-blue-600 {
+            background-color: rgb(158, 200, 185);
+        }
+
+        .delete-btn {
+            background-color: transparent;
+            color: #FFFFFF;
+            padding: 8px 12px;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .delete-btn:hover {
+            color: #EF4444;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: rgb(253, 207, 113);
+        font-family: myFirstFont;
+        /* Adjusted text color */
+    }
+
+    @font-face {
+        font-family: myFirstFont;
+        src: url('/sansation/Sansation_Regular.ttf');
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: rgb(253, 207, 113);
+        font-family: myFirstFont;
+    }
+
+    .profile-image-wrapper {
+        position: relative;
+        width: 60px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .profile-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        object-fit: cover;
+    }
+
+    .profile-image-svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+    }
+
+    .profile-item {
+        /* Make background transparent */
+        border: 2px solid rgb(253, 207, 113);
+        /* Add border color */
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .profile-link-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-link {
+        font-family: myFirstFont;
+    }
+
+    .header-container {
+        display: flex;
+        justify-content: left;
+        align-items: left;
+        position: relative;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+    }
+
+    .overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .overlay-content {
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        color: rgba(253, 207, 113, 0.9);
+    }
+
+    .overlay-content p {
+        margin-bottom: 20px;
+        font-family: myFirstFont;
+        font-size: x-large;
+        text-align: left;
+    }
+
+    .got-it-btn,
+    .create-person-btn {
+        background-color: rgb(253, 207, 113);
+        color: #282828;
+        font-weight: 700;
+        padding: 12px 24px;
+        text-decoration: none;
+        font-size: 18px;
+        display: inline-block;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+        margin-top: 10px;
+    }
+
+    .got-it-btn:hover,
+    .create-person-btn:hover {
+        background-color: rgb(112, 112, 112);
+    }
+
+    .arrow-animation {
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        animation: move-left 2s infinite alternate;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        color: rgb(253, 207, 113);
+    }
+
+    .overlay.show .arrow-animation {
+        opacity: 1;
+    }
+
+    @keyframes move-left {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(10px);
+        }
+    }
+
+    /* Added CSS for the arrow icon */
+    .arrow-icon {
+        fill: rgb(253, 207, 113);
+    }
+
+    /* Added CSS for the hamburger icon positioning */
+    .hamburger-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    .delete-button-container {
+        display: flex;
+        align-items: center;
+        color: rgb(253, 207, 113);
+    }
+
+    .create-button-container {
+        /* Remove text-align property */
+        margin-bottom: 20px;
+        /* Add some space between the button and the list */
+    }
+
+    .create-eulogies-btn {
+        background-color: rgb(253, 207, 113);
+        /* Button background color */
+        color: #520505;
+        /* Button text color */
+        padding: 8px 16px;
+        /* Decreased button padding */
+        font-size: 14px;
+        /* Decreased button font size */
+        border: none;
+        /* Remove button border */
+        border-radius: 7px;
+        /* Button border radius */
+        cursor: pointer;
+        /* Change cursor to pointer on hover */
+        transition: background-color 0.3s, color 0.3s;
+        font-family: myFirstFont;
+        font-weight: 700;
+    }
+
+</style>
+</head>
+
+<body class="bg-custom text-gray-300 font-sans">
+
+<div id="mySidenav" class="sidenav">
+    <!-- Display admin's username and email -->
+    <div class="admin-details" style="font-size: 24px; font-family: myFirstFont; text-align: left; margin-bottom: 0;">
+        <span> <strong> Hi ! </strong></span> <br>
+        <span><strong><%= adminUsername %></strong></span>
+    </div>
+    
+    <br> <br> <br>
+    <a href="/adminProfile/<%= adminPageId %>">Edit Profile</a>
+        <a href="/createPerson">Create Eulogies</a>
+        <a href="/admin/<%= adminPageId %>">My Eulogies</a>
+    <a href="/bin/<%= adminPageId %>">Bin</a>
+    <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href='/' class="logout-btn" onclick="closeNav()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+</div>
+
+<div class="header-container flex items-center justify-between w-full">
+    <!-- Added the arrow icon and hamburger icon -->
+    <div class="relative arrow-container">
+        <svg class="arrow-icon arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 5 12 12 19"></polyline>
+        </svg>
+        <span class="hamburger-icon" style="font-size:30px;color: rgb(253, 207, 113); margin-right: 10px;" onclick="openNav()">&#9776;</span>
+    </div>
+    <h1 style="margin-left: 40px;">Kaposter</h1>
+</div>
+
+<main class="p-8 main-content">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-2xl">My Eulogies</h3>
+        <div class="create-button-container">
+            <button id="createPersonBtn" class="create-eulogies-btn" onclick="createEulogies()">Create Eulogies</button>
+        </div>
+    </div>
+    <ul id="personList" class="grid grid-cols-1 gap-4"></ul>
+</main>
+
+<div id="overlay" class="overlay">
+    <div class="overlay-content">
+        <p>Kaposter isn’t just a digital platform; it’s a sanctuary where memories find their eternal home. In a world that rushes forward, we pause here to remember to celebrate the laughter, the tears, and the quiet moments that shape our lives. Our canvas is love, and our threads are memories woven delicately, yet unbreakable.</p>
+        <button id="createPersonBtn" class="create-eulogies-btn" onclick="createEulogies()">Create Eulogies</button>
+    </div>
+    <div class="arrow-animation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 5 12 12 19"></polyline>
+        </svg>
+    </div>
+</div>
+
+<script>
+    async function fetchPersons() {
+        try {
+            const response = await fetch('/getAdminPageId');
+            const {
+                adminPageId
+            } = await response.json();
+
+            const personsResponse = await fetch(`/people?adminPageId=${adminPageId}`);
+            const persons = await personsResponse.json();
+
+            const personList = document.getElementById('personList');
+            personList.innerHTML = '';
+
+            if (persons.length === 0) {
+                document.getElementById('overlay').classList.add('show');
+            } else {
+                document.getElementById('overlay').classList.remove('show');
+            }
+
+            persons.forEach(person => {
+                const listItem = document.createElement('li');
+                listItem.className = 'profile-item rounded-lg shadow-md p-4 flex flex-col md:flex-row items-start md:items-center justify-between';
+
+                const profileContainer = document.createElement('div');
+                profileContainer.className = 'flex items-center';
+
+                const profileImageWrapper = document.createElement('div');
+                profileImageWrapper.className = 'profile-image-wrapper';
+                const profileImageSVG = document.createElement('img');
+                profileImageSVG.src = '/images/circle.svg';
+                profileImageSVG.alt = 'Profile Image SVG';
+                profileImageSVG.className = 'profile-image-svg';
+                const profileImage = document.createElement('img');
+                profileImage.src = `${person.profileImage}`;
+                profileImage.alt = 'Profile Image';
+                profileImage.className = 'profile-image';
+                profileImageWrapper.appendChild(profileImageSVG);
+                profileImageWrapper.appendChild(profileImage);
+
+                const profileLinkContainer = document.createElement('div');
+                profileLinkContainer.className = 'profile-link-container flex-col md:flex-row';
+
+                const profileLink = document.createElement('a');
+                const formattedDOB = new Date(person.dob).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                const formattedDOD = new Date(person.dod).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                profileLink.textContent = `${person.name}`;
+                profileLink.href = `/profile/${person._id}`;
+                profileLink.className = 'text-lg hover:underline ml-4';
+                profileLink.style.color = 'rgb(253, 207, 113)'; // Change name color
+
+                const dateContainer = document.createElement('div');
+                dateContainer.className = 'text-sm md:ml-4 text-center';
+                dateContainer.textContent = `${formattedDOB} To: ${formattedDOD}` ;
+                dateContainer.style.color = 'rgb(253, 207, 113)'; // Change date color
+
+                profileLinkContainer.appendChild(profileLink);
+                profileLinkContainer.appendChild(dateContainer);
+
+                profileContainer.appendChild(profileImageWrapper);
+                profileContainer.appendChild(profileLinkContainer);
+
+                const buttonDiv = document.createElement('div');
+buttonDiv.className = 'delete-button-container ml-auto';
+
+const deleteButton = document.createElement('button');
+deleteButton.className = 'delete-btn';
+deleteButton.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="rgb(253, 207, 113)" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    </svg>
+`;
+
+deleteButton.addEventListener('click', async () => {
+    const confirmDelete = confirm('Are you sure you want to delete this person?');
+    if (confirmDelete) {
+        const response = await fetch(`/deletePerson/${person._id}`, {
+            method: 'DELETE'
+        });
+        const data = await response.json();
+        if (data.success) {
+            alert('Person deleted successfully');
+            fetchPersons();
+        } else {
+            alert('Failed to delete person');
+        }
+    }
+});
+
+buttonDiv.appendChild(deleteButton);
+
+                listItem.appendChild(profileContainer);
+                listItem.appendChild(buttonDiv);
+
+                personList.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching persons:', error);
+        }
+    }
+
+    fetchPersons();
+
+    function createEulogies() {
+        window.location.href = '/createPerson';
+    }
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.querySelector(".main-content");
+        document.getElementById("mySidenav").style.display = "block";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.querySelector(".main-content").style.marginLeft = "0";
+        document.getElementById("mySidenav").style.display = "none";
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const personList = document.getElementById('personList');
+        const overlay = document.getElementById('overlay');
+        const gotItBtn = document.getElementById('gotItBtn');
+        const createPersonBtn = document.getElementById('createPersonBtn');
+
+        gotItBtn.addEventListener('click', function () {
+            overlay.classList.remove('show');
+        });
+
+        createPersonBtn.addEventListener('click', function () {
+            window.location.href = '/createPerson';
+        });
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added viewport meta tag -->
+    <title>Bin Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@heroicons/react/outline.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: 'Raleway', sans-serif;
+            padding: 20px;
+            margin: 0; /* Added to reset default margin */
+        }
+        .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgb(253, 207, 113); /* Background color */
+    overflow: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+
+        .sidenav a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #282828;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: hsl(0, 0%, 0%);
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .logout-btn {
+            color: #FFFFFF;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-top: auto;
+            transition: background-color 0.3s, color 0.3s;
+            position: absolute;
+bottom: 20px;
+left: 20px;
+
+        }
+
+        .logout-btn:hover {
+            background-color: #ff0000;
+        }
+
+        .main-content {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+        .hamburger-icon {
+    font-size: 30px;
+    color: rgb(253, 207, 113);
+    cursor: pointer;
+    margin-left: 0px;
+}
+
+
+.header-container {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start; 
+    position: relative;
+    background-color: transparent;
+}
+
+        .rejected-upload {
+            background-color: rgba(253, 207, 113, 0.2);
+            padding: 20px; /* Adjusted padding */
+            margin-top: 10px;
+            border: 5px solid rgb(253, 207, 113);
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .restore-button {
+            background-color: rgb(253, 207, 113);
+            color: #520505;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px; /* Adjusted font size */
+        }
+
+        .restore-button:hover {
+            background-color: #f2c04f;
+        }
+
+        /* Media queries for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .main-content {
+                margin-left: 0; /* Adjusted margin for smaller screens */
+            }
+            .hamburger-icon {
+                top: 50%; /* Adjusted position for smaller screens */
+            }
+            .restore-button {
+                font-size: 12px; /* Adjusted font size for smaller screens */
+                padding: 8px 18px;
+            }
+        }
+        h3 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: rgb(253, 207, 113);
+        font-family: myFirstFont;
+        /* Adjusted text color */
+    }
+    h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: rgb(253, 207, 113);
+        font-family: myFirstFont;
+        text-align: center;
+    }
+    @font-face {
+        font-family: myFirstFont;
+        src: url('/sansation/Sansation_Regular.ttf');
+    }
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+
+        <br> <br> <br>
+        <a href="/adminProfile/<%= adminPageId %>">Edit Profile</a>
+        <a href="/createPerson">Create Eulogies</a>
+        <a href="/admin/<%= adminPageId %>">My Eulogies</a>
+        <a href="/bin/<%= adminPageId %>">Bin</a>
+        <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/" class="logout-btn" onclick="closeNav()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+
+    <div class="header-container flex items-left justify-between w-full">
+        <span class="hamburger-icon" onclick="openNav()">&#9776;</span>
+    </div> 
+    <h1>Kaposter</h1>   
+
+    <div id="main" class="main-content">
+        <h3>Bin</h3>
+        <br>
+        <ul>
+            <% profiles.forEach(profile => { %>
+            <li>
+                <p style="font-size: 25px;"><strong><%= profile.name %></strong></p> <br>
+                <ul id="uploadsList">
+                    <% rejectedUploads.forEach(uploads => { %>
+                    <% if (uploads.uploader.toString() === profile._id.toString()) { %>
+                    <li>
+                        <div class="rejected-upload" id="upload_<%= uploads._id %>">
+                            <p style="font-size: 12px;"><%= uploads.senderName %> has asked for your approval to post</p>
+                            <button onclick="restoreUpload('<%= uploads._id %>')" class="restore-button"> <strong> Restore </strong></button>
+                        </div>
+                        <br>
+                    </li>
+                    <% } %>
+                    <% }); %>
+                </ul>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.querySelector(".main-content").style.marginLeft = "0px";
+        }
+    
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.querySelector(".main-content").style.marginLeft = "0";
+        }
+    
+        function restoreUpload(uploadId) {
+        fetch(`/restore/${uploadId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                adminPageId: '<%= adminPageId %>'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById(`upload_${uploadId}`).remove(); // Remove the corresponding list item from the DOM
+            } else {
+                console.error('Failed to restore upload');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Ensure side navigation is closed by default
+    document.addEventListener("DOMContentLoaded", function () {
+        closeNav();
+        });
+    </script>
+    
+</body>
+</html>

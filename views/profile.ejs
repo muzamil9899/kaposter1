@@ -1,0 +1,1074 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+        <link href="https://cdn.jsdelivr.net/npm/@heroicons/svg@1.0.1/solid.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/fontawesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/solid.min.css" rel="stylesheet">
+
+
+        <style>
+            body {
+                background: linear-gradient(to right, #140000, #520505);
+                color: rgb(253, 207, 113);
+                font-family: "Raleway", sans-serif;
+                padding: 20px;
+                font-weight: bold;
+            }
+            a{
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 300;
+            }
+            .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: rgb(253, 207, 113);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            display: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .sidenav a,
+        .sidenav .admin-details {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #282828;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: hsl(0, 0%, 0%);
+        }
+
+        .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .logout-btn {
+            color: #FFFFFF;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-top: auto;
+            transition: background-color 0.3s, color 0.3s;
+            position: absolute;
+bottom: 20px;
+left: 20px;
+
+        }
+
+        .logout-btn:hover {
+            background-color: #ff0000;
+        }
+
+        .main-content {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        @media screen and (max-height: 450px) {
+            @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }}
+
+        .sidenav a,
+        .sidenav .admin-details {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #282828;
+            display: block;
+            transition: 0.3s;
+        }
+
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                font-family: 'Magic Vintage Demo', cursive;
+            }
+
+            p {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .link-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .link-item {
+                margin: 5px;
+                word-break: break-all;
+            }
+
+            a {
+                display: inline-block;
+                background-color: rgb(253, 207, 113);
+                color: #140000;
+                padding: 10px 20px;
+                border-radius: 12px;
+                text-decoration: none;
+                transition: background-color 0.3s;
+                margin-bottom: 10px;
+            }
+
+            a:hover {
+                background-color: rgba(253, 207, 113, 0.8);
+            }
+
+            .error-message {
+                font-size: 1.2rem;
+                margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                p {
+                    font-size: 1rem;
+                    margin-bottom: 15px;
+                }
+
+                .link-container {
+                    gap: 5px;
+                }
+            }
+
+            .custom-btn {
+    display: inline-block;
+    background-color: #FDBB4E;
+    color: #140000;
+    padding: 2.5px 5px;
+    border-radius: 4px;
+    border: 2px solid #520505; /* Adding border with color #520505 */
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.custom-btn:hover {
+    background-color: rgba(253, 207, 113, 0.8);
+}
+
+
+            .profile-image-wrapper {
+                position: relative;
+                width: 220px;
+                height: 220px;
+                border-radius: 110px;
+                margin: 0 auto 20px;
+                display: block;
+            }
+
+            .profile-image {
+                position: absolute;
+                top: 58%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 122px;
+                height: 122px;
+                border-radius: 60px;
+                object-fit: cover;
+            }
+
+            .profile-image-svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 240px;
+                height: 204px;
+                object-fit: cover;
+            }
+
+            .whatsapp-icon {
+                width: 116px; 
+                height: 41px; 
+            }
+
+            .password-container {
+    background-color: rgba(110, 225, 10, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    margin: 20px auto; 
+    border: 2px solid rgb(253, 207, 113); 
+    width: 250px; 
+}
+
+.password-container i {
+    margin-left: 8px; 
+    color: rgb(253, 207, 113);
+}
+
+.password-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#passwordInput {
+    background-color: transparent; 
+    border: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
+    width: 100%; 
+    margin-top: 10px; 
+    text-align: center; 
+}
+
+
+#nameInput {
+    background-color: transparent; 
+    border: none;
+    font-weight: bold;
+    font-size: 3rem;
+    outline: none;
+    width: 100%; 
+    margin-top: 10px; 
+    text-align: center; 
+}
+#dobToDodInput {
+    background-color: transparent; 
+    border: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
+    width: 100%; 
+    margin-top: 10px; 
+    text-align: center; 
+}
+#messageInput {
+    background-color: transparent; 
+    border: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
+    width: 100%; 
+    margin-top: 10px; 
+    text-align: center; 
+}
+
+#savePasswordButton {
+    background-color: rgb(253, 207, 113); 
+    border: none;
+    color: #520505;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold; /* Made the text bold */
+    margin-top: 10px; /* Margin for spacing */
+    width: 100%; /* Full width button */
+    text-align: center; /* Center align text */
+}
+#saveButtonName {
+                font-size: 1.2rem;
+
+            }
+            @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+            h3{
+                font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(253, 207, 113);
+            font-family: myFirstFont;
+
+            }
+            h2{
+                font-size: large;
+            }
+            .mediaCard {
+                background-color: rgb(253, 207, 113);
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 20px;
+                color: #000;
+                padding: 15px;
+            }
+
+            .mediaCard img, .mediaCard video {
+                width: 100%;
+                height: auto;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .mediaDetails {
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+            }
+
+            .mediaSender {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                text-align: left;
+            }
+
+            .mediaCaption {
+                font-size: 16px;
+                color: #000;
+                margin-bottom: 10px;
+                text-align: left;
+            }
+
+            .approve-container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .approve-btn {
+                background-color: #450404;
+                color: rgb(253, 207, 113);
+                padding: 10px 40px;
+                border: 2px solid transparent;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                font-size: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .approve-btn svg {
+                fill: rgb(253, 207, 113);
+                width: 24px;
+                height: 24px;
+            }
+
+            .error-message {
+                font-size: 1.2rem;
+                margin-top: 20px;
+                text-align: center;
+            }
+            #unapprovedContent, #feedContent {
+                display: none;
+            }
+            .like-comment {
+                display: flex;
+                justify-content: left;
+                width: 100%;
+                margin-top: 0;
+            }
+            .like-comment button {
+                background-color: transparent;
+                padding: 7px 14px;
+                border: none;
+                cursor: pointer;
+                transition: color 0.3s;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 7px;
+            }
+            .like-comment button .fa-heart,
+            .like-comment button .fa-comment {
+                color: #450304;
+                font-size: 25px;
+            }
+            .like-comment button.liked .fa-heart,
+            .like-comment button.commented .fa-comment {
+                color: rgb(255, 0, 0);
+            }
+            .comments-container {
+                margin-top: 10px;
+                display: none; /* Initially hidden */
+            }
+            .comment {
+                display: flex;
+                margin-bottom: 5px;
+            }
+            .commenter-name {
+                font-weight: bold;
+                margin-right: 5px;
+                color: #450404;
+            }
+            .comment-text {
+                color: #450404;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .comment-form {
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+            }
+            .comment-form input,
+            .comment-form textarea {
+                padding: 5px;
+                margin-bottom: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            .comment-form button {
+                background-color: #450304;
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            .comment-form button:hover {
+                background-color: rgb(255, 0, 0);
+            }
+            .delete-comment {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                color: #450404;
+                margin-left: 10px;
+                transition: color 0.3s;
+            }
+            .delete-comment:hover {
+                color: rgb(255, 0, 0);
+            }
+            .relationship-box {
+        background-color: #400404;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        margin-top: 5px;
+        display: inline-block;
+    }
+        </style>
+
+    </head>
+    <body>
+        <div id="mySidenav" class="sidenav">
+            <br> <br> <br>
+            <a href="/adminProfile/<%= adminPageId %>">Edit Profile</a>
+                <a href="/createPerson">Create Eulogies</a>
+                <a href="/admin/<%= adminPageId %>">My Eulogies</a>
+            <a href="/bin/<%= adminPageId %>">Bin</a>
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/" class="logout-btn" onclick="closeNav()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+        
+        <div class="header-container flex items-center justify-between w-full">
+                <span class="hamburger-icon" style="font-size:30px;color: rgb(253, 207, 113); margin-right: 10px;" onclick="openNav()">&#9776;</span>
+            </div>
+        <h3> Kaposter</h3>
+        <div class="container" style="position: relative;">
+            <% if (name && message && profileImage && password) { %>
+                <div class="profile-image-wrapper">
+                    <img id="profileImageSVG" src="/images/photo_frame.svg" alt="Profile Image SVG" class="profile-image-svg" />
+                    <img id="profileImage" src="<%= profileImage %>" alt="Profile Image" class="profile-image" />
+                </div>
+                <div class="edit-icon-container" style="position: absolute; top: 10px; right: 10px; color: rgb(253, 207, 113);">
+                    <i id="editIconTop" class="far fa-edit" style="cursor: pointer; font-size: 2em;" onclick="toggleEditMode()"></i>
+                </div>                
+                <h1>
+                    <span id="nameText"><%= name %></span>
+                    <input type="text" id="nameInput" value="<%= name %>" style="display:none;">
+                    <i id="editIconName" class="fas fa-pencil-alt edit-icon" onclick="editField('name')" style="cursor: pointer; display: none;"></i>
+                </h1>
+                <h2>
+                    <small id="dobToDodText"><%= dobToDod %></small>
+                    <input type="text" id="dobToDodInput" value="<%= dobToDod %>" style="display:none;">
+                    <i id="editIconDobToDod" class="fas fa-pencil-alt edit-icon" onclick="editField('dobToDod')" style="cursor: pointer; display: none;"></i>
+                </h2>
+                <br>
+                <p>
+                    " <span id="messageText"><%= message %></span> "
+                    <input type="text" id="messageInput" value="<%= message %>" style="display:none;">
+                    <i id="editIconMessage" class="fas fa-pencil-alt edit-icon" onclick="editField('message')" style="cursor: pointer; display: none;"></i>
+                </p>
+                <br>
+                <p>To gather eulogies:</p>
+                <div style="margin-top: 10px;">
+                    <div class="flex items-center justify-center">
+                        <div class="flex items-center">
+                            <div class="flex items-center">
+                                <img src="/images/Whatsapp.svg" alt="Share via WhatsApp" id="whatsappIcon" class="whatsapp-icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <a href="/authenticator/<%= personId %>"><strong> Gather Eulogies </strong></a>
+                <br>
+                <div class="password-container">
+                    <p class="password-text">Passcode: <span id="passwordText"><%= password %></span>
+                        <i id="editIconPassword" class="fas fa-pencil-alt edit-icon" onclick="editPassword()" style="cursor: pointer;"></i>
+                    </p>
+                    <input type="text" id="passwordInput" value="<%= password %>" style="display:none;">
+                    <button id="savePasswordButton" onclick="savePassword()" style="display:none;">Save</button>
+                </div>
+            <% } %>
+        </div>
+                <br>
+                <div style="margin-top: 10px; display: flex; justify-content: center; align-items: center;">
+                    <button class="custom-btn" id="unapprovedButton" onclick="showUnapproved()">Memories Request</button>
+                    <button class="custom-btn" id="feedButton" onclick="showFeed()">Approved Memories</button>
+                </div>
+                
+                
+        </div>
+
+        <div id="unapprovedContent">
+            <div id="unapprovedMediaContainer"></div>
+        </div>
+
+        <!-- Copied from feed.ejs -->
+        <div id="feedContent">
+            <div id="feedMediaContainer"></div>
+        </div>
+
+        <script>
+
+             // New JavaScript for editing the password
+             function editPassword() {
+        document.getElementById('passwordText').style.display = 'none';
+        document.getElementById('passwordInput').style.display = 'inline';
+        document.getElementById('savePasswordButton').style.display = 'inline';
+    }
+
+    function savePassword() {
+        const newPassword = document.getElementById('passwordInput').value;
+        const personId = '<%= personId %>';
+
+        fetch(`/updatePassword/${personId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password: newPassword })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update password');
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById('passwordText').textContent = newPassword;
+            document.getElementById('passwordText').style.display = 'inline';
+            document.getElementById('passwordInput').style.display = 'none';
+            document.getElementById('savePasswordButton').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error updating password:', error);
+            alert('Failed to update password. Please try again later.');
+        });
+    }
+
+
+            function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.querySelector(".main-content");
+        document.getElementById("mySidenav").style.display = "block";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.querySelector(".main-content").style.marginLeft = "0";
+        document.getElementById("mySidenav").style.display = "none";
+    }
+
+    document.getElementById('whatsappIcon')?.addEventListener('click', function(event) {
+    const personId = '<%= personId %>';
+    const password = '<%= password %>';
+    const name = '<%= name %>';
+    const BACKEND_URL = '<%= BACKEND_URL %>';
+    console.log ("Backend: ", BACKEND_URL )
+    const link = `${BACKEND_URL}/authenticator/${personId}`;
+    console.log("Link:", link);
+    const message = `Hello everyone,
+
+I hope this message finds you well. As many of you know, we recently lost ${name}. In an effort to honor their memory and provide a space for us all to share photos, and condolences, we've set up a page on KA Poster, a platform dedicated to remembering our loved ones.
+
+Please visit the following link to contribute your memories and offer support to one another during this difficult time:
+${link}
+
+To access the page, use this *password*: ${password}
+
+Your contributions will help us create a beautiful tribute to ${name} and keep their memory alive in our hearts.
+
+Thank you for your support and participation.
+
+Warm regards`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+});
+
+
+
+            function fetchUnapprovedMedia() {
+                const mediaContainer = document.getElementById('unapprovedMediaContainer');
+
+
+                const approveImage = (uploadId) => {
+                    fetch(`/approveUpload/${uploadId}`, { method: 'PUT' })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to approve image');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Approval response:', data);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error('Error approving image:', error);
+                            alert('Failed to approve image. Please try again later.');
+                        });
+                };
+
+                fetch(`/api/unapproved-images/<%= personId %>`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch images');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Images data:', data);
+
+                        mediaContainer.innerHTML = '';
+
+                        data.images.forEach(mediaInfo => {
+                            console.log('Media Info:', mediaInfo);
+
+                            const mediaCard = document.createElement('div');
+                            mediaCard.className = 'mediaCard';
+
+                            const mediaSender = document.createElement('div');
+    mediaSender.className = 'mediaSender';
+    mediaSender.innerHTML = `
+        <span>${mediaInfo.senderName}</span>
+        <div class="relationship-box">${mediaInfo.relationship}</div>
+    `;
+    mediaCard.appendChild(mediaSender);
+
+                            const fileExtension = mediaInfo.url.split('.').pop().toLowerCase();
+
+                            let mediaElement;
+                            console.log("media:" , mediaElement);
+                            if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+                                mediaElement = document.createElement('img');
+                                mediaElement.src = mediaInfo.link;
+                                console.log("img",mediaElement);
+                            } else if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
+                                mediaElement = document.createElement('video');
+                                mediaElement.controls = true;
+                                mediaElement.src = mediaInfo.link;
+                            } else {
+                                console.error('Unsupported media type:', fileExtension);
+                                return;
+                            }
+                            mediaElement.alt = 'Uploaded Mediaz';
+
+                            mediaCard.appendChild(mediaElement);
+
+                            const mediaCaption = document.createElement('div');
+                            mediaCaption.className = 'mediaCaption';
+                            mediaCaption.textContent = `${mediaInfo.caption}`;
+                            mediaCard.appendChild(mediaCaption);
+
+                            const approveContainer = document.createElement('div');
+approveContainer.className = 'approve-container';
+
+const approveButton = document.createElement('button');
+approveButton.className = 'approve-btn';
+approveButton.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path d="M9 16.17L4.83 12 3.41 13.41l6 6 12-12L19.59 6.59 9 16.17z"/>
+    </svg>
+`;
+approveButton.addEventListener('click', () => approveImage(mediaInfo._id));
+approveContainer.appendChild(approveButton);
+
+const rejectButton = document.createElement('button');
+rejectButton.className = 'approve-btn';
+rejectButton.style.backgroundColor = '#450404';
+rejectButton.style.marginLeft = '30px'; 
+rejectButton.innerHTML = 'x';
+rejectButton.addEventListener('click', () => rejectImage(mediaInfo._id));
+approveContainer.appendChild(rejectButton);
+
+                            mediaCard.appendChild(approveContainer);
+
+                            mediaContainer.appendChild(mediaCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching images:', error);
+                        alert('Failed to fetch images. Please try again later.');
+                    });
+            };
+
+            function fetchFeedMedia() {
+        const mediaContainer = document.getElementById('feedMediaContainer'); // Updated element ID
+        let imagesData = [];
+
+                fetch(`/api/approved-images/<%= personId %>`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch images');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        imagesData = data.images;
+                        mediaContainer.innerHTML = '';
+
+                        imagesData.forEach((mediaInfo, index) => {
+                            const mediaCard = document.createElement('div');
+                            mediaCard.className = 'mediaCard';
+                            mediaCard.dataset.index = index;
+
+                            const mediaSender = document.createElement('div');
+    mediaSender.className = 'mediaSender';
+    mediaSender.innerHTML = `
+        <span>${mediaInfo.senderName}</span>
+        <div class="relationship-box">${mediaInfo.relationship}</div>
+    `;
+    mediaCard.appendChild(mediaSender);
+
+                            if (mediaInfo.fileType == "image") {
+                                const img = document.createElement('img');
+                                img.src = `${mediaInfo.filePath}`;
+                                img.alt = 'Uploaded Mediaaaa';
+                                mediaCard.appendChild(img);
+                            } else if (mediaInfo.fileType == "video") {
+                                const video = document.createElement('video');
+                                video.src = `${mediaInfo.filePath}`;
+                                video.controls = true; // Add controls for play, pause, etc.
+                                video.alt = 'Uploaded Video';
+                                mediaCard.appendChild(video);
+                            }
+
+                            const mediaCaption = document.createElement('div');
+                            mediaCaption.className = 'mediaCaption';
+                            mediaCaption.textContent = mediaInfo.caption;
+                            mediaCard.appendChild(mediaCaption);
+
+                            const likeCommentContainer = document.createElement('div');
+                            likeCommentContainer.className = 'like-comment';
+                            mediaCard.appendChild(likeCommentContainer);
+
+                            const likeButton = document.createElement('button');
+                            likeButton.innerHTML = `
+        <i class="fas fa-heart"></i> <span style="color: rgb(0, 0, 0);">${mediaInfo.likes}</span>
+    `;
+
+                            likeButton.onclick = function () {
+                                likeImage(mediaInfo._id);
+                                mediaInfo.likes++;
+                                this.innerHTML = `<i class="fas fa-heart"></i> <span style="color: rgb(0, 0, 0);">${mediaInfo.likes}</span>`;
+                                this.classList.toggle('liked');
+                            };
+                            likeCommentContainer.appendChild(likeButton);
+
+                            const commentButton = document.createElement('button');
+                            commentButton.innerHTML = `<i class="fas fa-comment"></i>`;
+
+                            commentButton.onclick = function () {
+                                const commentsContainer = mediaCard.querySelector('.comments-container');
+                                commentsContainer.style.display = commentsContainer.style.display === 'none' ? 'block' : 'none';
+                            };
+                            likeCommentContainer.appendChild(commentButton);
+
+                            const commentsContainer = document.createElement('div');
+                            commentsContainer.className = 'comments-container';
+
+                            mediaInfo.comments.forEach(comment => {
+                                const commentElement = document.createElement('div');
+                                commentElement.className = 'comment';
+                                commentElement.innerHTML = `
+                                    <span class="commenter-name">${comment.commenterName}</span>
+                                    <span class="comment-text">${comment.comment}</span>
+                                    <button class="delete-comment"><i class="fas fa-trash-alt"></i></button>
+                                `;
+                                commentElement.querySelector('.delete-comment').onclick = function () {
+                                    deleteComment(mediaInfo._id, comment._id, index, commentElement);
+                                };
+                                commentsContainer.appendChild(commentElement);
+                            });
+
+                            const commentForm = document.createElement('div');
+                            commentForm.className = 'comment-form';
+                            commentForm.innerHTML = `
+                                <input type="text" name="commenterName" placeholder="Your Name" required>
+                                <textarea name="comment" placeholder="Your Comment" required></textarea>
+                                <button type="button">Submit</button>
+                            `;
+                            commentForm.querySelector('button').onclick = function () {
+                                const commenterName = commentForm.querySelector('input[name="commenterName"]').value;
+                                const commentText = commentForm.querySelector('textarea[name="comment"]').value;
+
+                                if (commenterName && commentText) {
+                                    commentImage(mediaInfo._id, commenterName, commentText, index);
+                                    commentForm.querySelector('input[name="commenterName"]').value = '';
+                                    commentForm.querySelector('textarea[name="comment"]').value = '';
+                                }
+                            };
+                            commentsContainer.appendChild(commentForm);
+
+                            mediaCard.appendChild(commentsContainer);
+                            mediaContainer.appendChild(mediaCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching images:', error);
+                        alert('Failed to fetch images. Please try again later.');
+                    });
+
+                function likeImage(imageId) {
+                    fetch(`/api/like-image/${imageId}`, {
+                        method: 'POST'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            
+                        } else {
+                            alert('Failed to like image');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error liking image:', error);
+                    });
+                }
+
+                function commentImage(imageId, commenterName, comment, imageIndex) {
+                    console.log(`Sending comment for image index: ${imageIndex}`);
+                    fetch(`/api/comment-image/${imageId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ commenterName, comment, imageIndex })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            alert('Failed to add comment');
+                        }
+                    })
+                    .then(data => {
+                        if (data) {
+                            displayComment(data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error adding comment:', error);
+                    });
+                }
+
+                function displayComment(data) {
+                    console.log('Data received for comment:', data);
+                    const { imageIndex, commenterName, comment } = data;
+                    const mediaCard = document.querySelector(`.mediaCard[data-index="${imageIndex}"]`);
+                    if (!mediaCard) {
+                        console.error('Media card not found for index:', imageIndex);
+                        return;
+                    }
+
+                    const commentsContainer = mediaCard.querySelector('.comments-container');
+                    const commentElement = document.createElement('div');
+                    commentElement.className = 'comment';
+                    commentElement.innerHTML = `
+                        <span class="commenter-name">${commenterName}</span>
+                        <span class="comment-text">${comment}</span>
+                        <button class="delete-comment"><i class="fas fa-trash-alt"></i></button>
+                    `;
+                    commentElement.querySelector('.delete-comment').onclick = function () {
+                        deleteComment(mediaInfo._id, comment._id, imageIndex, commentElement);
+                    };
+                    commentsContainer.appendChild(commentElement);
+                }
+
+                function deleteComment(imageId, commentId, imageIndex, commentElement) {
+                    fetch(`/api/delete-comment/${imageId}/${commentId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            commentElement.remove();
+                        } else {
+                            alert('Failed to delete comment');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting comment:', error);
+                    });
+                }
+            };
+
+            // New JavaScript for showing/hiding content
+            function showUnapproved() {
+                document.getElementById('unapprovedContent').style.display = 'block';
+                document.getElementById('feedContent').style.display = 'none';
+
+                // Fetch and display unapproved media cards
+                fetchUnapprovedMedia();
+            }
+
+            function showFeed() {
+                document.getElementById('unapprovedContent').style.display = 'none';
+                document.getElementById('feedContent').style.display = 'block';
+
+                // Fetch and display approved media cards
+                fetchFeedMedia();
+            }
+
+            const rejectImage = (uploadId) => {
+    fetch(`/rejectUpload/${uploadId}`, { method: 'PUT' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to reject image');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Rejection response:', data);
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error rejecting image:', error);
+            alert('Failed to reject image. Please try again later.');
+        });
+};
+// Example function to reject an upload from the frontend
+async function rejectUpload(uploadId) {
+    try {
+        const response = await fetch(`/rejectUpload/${uploadId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to reject image. Please try again later.');
+        }
+
+        const result = await response.json();
+        console.log('Image rejected successfully:', result);
+        // You may also update the UI here to reflect the change
+    } catch (error) {
+        console.error('Error rejecting image:', error);
+        alert('Failed to reject image. Please try again later.');
+    }
+}
+function editField(field) {
+        const textElement = document.getElementById(field + 'Text');
+        const inputElement = document.getElementById(field + 'Input');
+        const editIcon = document.getElementById('editIcon' + capitalizeFirstLetter(field));
+        const saveButton = document.createElement('button');
+        saveButton.innerText = 'Save';
+        saveButton.onclick = function() {
+            saveField(field);
+        };
+        saveButton.id = 'saveButton' + capitalizeFirstLetter(field);
+
+        textElement.style.display = 'none';
+        inputElement.style.display = 'inline';
+        editIcon.style.display = 'none';
+        inputElement.parentNode.insertBefore(saveButton, inputElement.nextSibling);
+    }
+
+    function saveField(field) {
+        const textElement = document.getElementById(field + 'Text');
+        const inputElement = document.getElementById(field + 'Input');
+        const editIcon = document.getElementById('editIcon' + capitalizeFirstLetter(field));
+        const saveButton = document.getElementById('saveButton' + capitalizeFirstLetter(field));
+
+        const updatedValue = inputElement.value;
+
+        fetch('/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ field: field, value: updatedValue, personId: '<%= personId %>' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                textElement.innerText = updatedValue;
+                textElement.style.display = 'inline';
+                inputElement.style.display = 'none';
+                editIcon.style.display = 'inline';
+                saveButton.remove();
+            } else {
+                alert('Failed to update: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating field:', error);
+            alert('Failed to update: ' + error.message);
+        });
+    }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function toggleEditMode() {
+        const editIcons = document.querySelectorAll('.edit-icon');
+        editIcons.forEach(icon => {
+            icon.style.display = icon.style.display === 'none' ? 'inline' : 'none';
+        });
+    }
+        </script>
+    </body>
+    </html>

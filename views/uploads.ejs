@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaposter Upload Page</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background gradient */
+        /* Custom background gradient */
+body {
+    background: linear-gradient(to right, #140000, #520505);
+    color: rgb(253, 207, 113);
+    font-family: "Raleway", sans-serif;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="file"] {
+    background-color: transparent;
+    border: 2px solid rgb(253, 207, 113);
+    color: rgb(253, 207, 113);
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="text"]::placeholder,
+input[type="file"]::placeholder {
+    color: rgb(253, 207, 113);
+}
+select {
+
+    border: 2px solid rgb(253, 207, 113);
+    color: rgb(253, 207, 113);
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+}
+
+select option {
+    color: rgb(253, 207, 113);
+}
+
+select:focus {
+    color: rgb(253, 207, 113); 
+    outline: none;
+}
+
+/* Custom dropdown arrow */
+.select-container {
+    position: relative;
+
+    
+}
+
+.select-container::after {
+    content: '\25BC'; 
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the arrow doesn't block clicks */
+    color: rgb(253, 207, 113);
+
+}
+
+/* Other styles */
+.file-upload-containerzzz {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid rgb(253, 207, 113);
+    color: rgb(253, 207, 113);
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#fileNameText {
+    color: rgb(253, 207, 113);
+    margin-left: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 8px 16px; 
+    font-size: 14px; 
+    background-color: rgb(253, 207, 113);
+    color: #140000;
+    border: 2px solid rgb(253, 207, 113);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.file-label:hover {
+    background-color: rgba(253, 207, 113, 0.8);
+}
+
+#relationship {
+    background: linear-gradient(to right, #140000, #520505);
+    border: 2px solid rgb(253, 207, 113);
+    color: rgb(253, 207, 113);
+    padding: 8px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#relationship option {
+    background: #551a1a;
+    color: rgb(253, 207, 113);
+}
+
+
+#relationship:focus {
+    background: #551a1a;
+    color: rgb(253, 207, 113); 
+}
+
+/* Style the container to align items */
+.file-upload-container {
+
+    display: flex;
+    align-items: center;
+}
+
+/* Style the file name text */
+#fileNameText {
+    color: rgb(253, 207, 113);
+    margin-right: 10px;
+}
+
+button[type="submit"],
+button[type="button"] {
+    background-color: rgb(253, 207, 113);
+    color: #140000;
+    border: 2px solid rgb(253, 207, 113);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover,
+button[type="button"]:hover {
+    background-color: rgba(253, 207, 113, 0.8);
+}
+
+#closeOverlayButton {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    font-size: 24px;
+    color: rgb(253, 207, 113);
+    cursor: pointer;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    border-radius: 110px;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.profile-image {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 122px;
+    height: 122px;
+    border-radius: 60px;
+    object-fit: cover;
+}
+
+.profile-image-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px;
+    height: 204px;
+    object-fit: cover;
+}
+
+/* Modal styles */
+.hidden {
+    display: none;
+}
+
+.overlay {
+    position: center;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: linear-gradient(to right, #140000, #520505);
+    color: rgb(253, 207, 113);
+    font-size: medium;
+}
+
+.overlay-content {
+    color: rgb(253, 207, 113);
+    text-align: center;
+    font-size: smaller;
+    padding: 20px;
+}
+
+.overlay-content p {
+    font-size: 15px;
+}
+
+.close-button {
+    background-color: #320303;
+    color: rgb(253, 207, 113);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: 'Magic Vintage Demo', cursive;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url('/sansation/Sansation_Regular.ttf');
+}
+
+h3 {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(253, 207, 113);
+    font-family: myFirstFont;
+}
+
+h2 {
+    font-size: large;
+}
+
+.preview-image {
+    width: 300px;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+}
+.mediaCard {
+            background-color: rgb(253, 207, 113);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            color: #000;
+            padding: 15px;
+        }
+
+        .mediaCard img, .mediaCard video {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .mediaDetails {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mediaSender {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .mediaCaption {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <h3>Kaposter</h3>
+    <div class="profile-image-wrapper">
+        <img id="profileImageSVG" src="/images/photo_frame.svg" alt="Profile Image SVG" class="profile-image-svg" />
+        <img id="profileImage" src="<%= profileImage %>" alt="Profile Image" class="profile-image" />
+    </div>
+
+    <div class="container">
+        <form id="uploadForm" action="/upload/<%= personId %>" method="POST" enctype="multipart/form-data">
+            <h1><%= name %> <br></h1>
+            <br>
+            <div class="mb-4">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="file-upload-containerzzz">
+                <label for="files" class="file-label">Choose files</label>
+                <input type="file" id="files" name="files" accept="image/*, video/*" required>
+                <span id="fileNameText">No file chosen</span>
+            </div>
+            <div class="mb-4">
+                <div class="select-container ">
+                    <select id="relationship" name="relationship" required>
+                        <option value="">Select Relationship</option>
+                        <option value="Aunt">Aunt</option>
+                        <option value="Boyfriend">Boyfriend</option>
+                        <option value="Brother">Brother</option>
+                        <option value="Colleague">Colleague</option>
+                        <option value="Cousin">Cousin</option>
+                        <option value="Daughter">Daughter</option>
+                        <option value="Father">Father</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Girlfriend">Girlfriend</option>
+                        <option value="Granddaughter">Granddaughter</option>
+                        <option value="Grandfather">Grandfather</option>
+                        <option value="Grandmother">Grandmother</option>
+                        <option value="Grandson">Grandson</option>
+                        <option value="Husband">Husband</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Nephew">Nephew</option>
+                        <option value="Niece">Niece</option>
+                        <option value="Sister">Sister</option>
+                        <option value="Son">Son</option>
+                        <option value="StepFamily">StepFamily</option>
+                        <option value="Uncle">Uncle</option>
+                        <option value="Wife">Wife</option>
+                        <option value="Other">Other</option>
+                        <option value="No relationship">No relationship</option>
+                    </select>
+                </div>
+            </div>            
+            <div class="mb-4">
+                <input type="text" id="caption" name="caption" placeholder="Your Message" required>
+            </div>
+            <button type="button" id="previewButton" class="px-4 py-2 rounded-md transition-colors duration-300">Preview</button>
+            <button type="submit" id="shareMemories" class="px-4 py-2 rounded-md transition-colors duration-300 hidden">Share memories</button>
+        </form>
+    </div>
+
+    <div id="previewOverlay" class="overlay hidden fixed inset-0 flex items-center justify-center">
+        <div class="overlay-content text-center p-8 rounded-md">
+            <h3>Kaposter</h3>
+            <h2 class="text-2xl font-bold mb-4" id="previewName"></h2>
+            <p class="mb-4" id="previewRelationship"></p>
+            <div id="previewMedia" class="mb-4"></div>
+            <p class="mb-4" id="previewCaption"></p>
+            <button type="button" id="shareMemoriesOverlay" class="px-4 py-2 rounded-md transition-colors duration-300">Share memories</button>
+        </div>
+        <i id="closeOverlayButton" class="fas fa-edit"></i>
+    </div>
+
+    <div id="successPopup" class="overlay hidden fixed inset-0 flex items-center justify-center">
+        <div class="overlay-content text-center p-8 rounded-md">
+            <h3>Kaposter</h3>
+            <h2 class="text-2xl font-bold mb-4">Thank You</h2>
+            <p class="mb-4">I wanted to take a moment to express my deepest gratitude for sharing your memories and thoughts on the memorial link for our beloved Ken. Your heartfelt messages have brought comfort during this difficult time, and they serve as a beautiful tribute to their life.</p>
+            <button type="button" id="closeSuccessPopup" class="px-4 py-2 rounded-md transition-colors duration-300">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+    const previewButton = document.getElementById('previewButton');
+    const previewOverlay = document.getElementById('previewOverlay');
+    const closeOverlayButton = document.getElementById('closeOverlayButton');
+    const previewName = document.getElementById('previewName');
+    const previewRelationship = document.getElementById('previewRelationship');
+    const previewCaption = document.getElementById('previewCaption');
+    const previewMedia = document.getElementById('previewMedia');
+    const shareMemoriesOverlay = document.getElementById('shareMemoriesOverlay');
+    const successPopup = document.getElementById('successPopup');
+    const closeSuccessPopup = document.getElementById('closeSuccessPopup');
+    const fileInput = document.getElementById('files');
+    const fileNameText = document.getElementById('fileNameText');
+
+    previewButton.addEventListener('click', () => {
+    const name = document.getElementById('name').value;
+    const relationship = document.getElementById('relationship').value;
+    const caption = document.getElementById('caption').value;
+    const file = fileInput.files[0];
+
+    // Create a mediaCard element
+    const mediaCard = document.createElement('div');
+    mediaCard.className = 'mediaCard';
+
+    // Create and append mediaSender element
+    const mediaSender = document.createElement('div');
+    mediaSender.className = 'mediaSender';
+    mediaSender.textContent = `${name} - ${relationship}`;
+    mediaCard.appendChild(mediaSender);
+
+    // Create and append mediaElement based on file type
+    let mediaElement;
+    if (file) {
+        const fileType = file.type.split('/')[0];
+        if (fileType === 'image') {
+            mediaElement = document.createElement('img');
+            mediaElement.src = URL.createObjectURL(file);
+            mediaElement.alt = 'Preview Image';
+        } else if (fileType === 'video') {
+            mediaElement = document.createElement('video');
+            mediaElement.src = URL.createObjectURL(file);
+            mediaElement.controls = true;
+        } else {
+            console.error('Unsupported file type:', fileType);
+            return;
+        }
+    } else {
+        console.error('No file selected.');
+        return;
+    }
+
+    // Append mediaElement to mediaCard
+    if (mediaElement) {
+        mediaCard.appendChild(mediaElement);
+    }
+
+    // Create and append mediaCaption element
+    const mediaCaption = document.createElement('div');
+    mediaCaption.className = 'mediaCaption';
+    mediaCaption.textContent = caption;
+    mediaCard.appendChild(mediaCaption);
+
+    // Clear previous content and append mediaCard to previewMedia
+    previewMedia.innerHTML = '';
+    previewMedia.appendChild(mediaCard);
+
+    // Show the preview overlay
+    previewOverlay.classList.remove('hidden');
+});
+
+closeOverlayButton.addEventListener('click', () => {
+    previewOverlay.classList.add('hidden');
+});
+
+closeOverlayButton.addEventListener('click', () => {
+    previewOverlay.classList.add('hidden');
+});
+
+    closeOverlayButton.addEventListener('click', () => {
+        previewOverlay.classList.add('hidden');
+    });
+
+    shareMemoriesOverlay.addEventListener('click', async () => {
+        const formData = new FormData(uploadForm);
+        try {
+            const response = await fetch(uploadForm.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                previewOverlay.classList.add('hidden');
+                successPopup.classList.remove('hidden');
+            } else {
+                const result = await response.json();
+                alert(result.message || 'Upload failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+
+    closeSuccessPopup.addEventListener('click', () => {
+        successPopup.classList.add('hidden');
+        window.location.href = `/feed/<%= personId %>`;
+    });
+
+    fileInput.addEventListener('change', () => {
+        fileNameText.textContent = fileInput.files.length > 0 ? fileInput.files[0].name : 'No file chosen';
+    });
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(uploadForm);
+            try {
+                const response = await fetch(uploadForm.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    previewOverlay.classList.add('hidden');
+                    successPopup.classList.remove('hidden');
+                    closeSuccessPopup.addEventListener('click', () => {
+                        successPopup.classList.add('hidden');
+                        window.location.href = `/feed/${personId}`;
+                });
+                } else {
+                    const result = await response.json();
+                    alert(result.message || 'Upload failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+
+        closeSuccessPopup.addEventListener('click', () => {
+            successPopup.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

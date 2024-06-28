@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: "Raleway", sans-serif;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            background-color: transparent;
+            border: 2px solid rgb(253, 207, 113);
+            color: rgb(253, 207, 113);
+            width: 100%;
+            max-width: 320px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: rgb(253, 207, 113);
+        }
+
+        button[type="submit"] {
+            background-color: rgb(253, 207, 113);
+            color: #140000;
+            border: 2px solid rgb(253, 207, 113);
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgba(253, 207, 113, 0.8);
+        }
+
+        .icon {
+            color: rgb(253, 207, 113);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .icon:hover {
+            color: rgba(253, 207, 113, 0.8);
+        }
+
+        .signup-text {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .signup-text p {
+            margin-right: 5px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: rgb(253, 207, 113);
+            /* Adjusted text color */
+            font-family: 'Sansation', sans-serif;
+            text-align: center;
+        }
+
+        @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+
+        h1 {
+            font-family: myFirstFont;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <h1 class="text-4xl font-bold mb-4">Kaposter</h1>
+        <p class="text-lg mb-8">"Where Memories Live Forever"</p>
+        <h3 class="text-2xl text-left mb-4" style="text-align: left !important;">Sign in</h3>
+        <form id="loginForm" action="/login" method="POST" class="flex flex-col items-center w-full max-w-md">
+            <input type="email" id="email" name="email" required placeholder="Email"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <input type="password" id="password" name="password" required placeholder="Password"
+                class="px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-gray-500 mb-4 w-full">
+            <button type="submit" class="px-4 py-2 rounded-md transition-colors duration-300">Continue</button>
+        </form>
+
+        <div class="flex justify-center mt-4">
+            <button id="google-signin-button" class="px-4 py-2 rounded-md transition-colors duration-300">
+                <i class="fab fa-google icon"></i>
+            </button>
+        </div>
+        
+        <div class="signup-text mt-4">
+            <p>Don't have an account?</p>
+            <button id="signupButton" class="underline"> <b> Sign Up </b></button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupButton').addEventListener('click', () => {
+            window.location.href = '/signup'; // Redirect to signup page
+        });
+    </script>
+     
+    <script>
+        document.getElementById('google-signin-button').addEventListener('click', () => {
+    // Redirect to the Google sign-in page using the environment variable
+    window.location.href = '<%= GOOGLE_AUTH %>';
+});
+    </script>
+    
+</body>
+
+</html>

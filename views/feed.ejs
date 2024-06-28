@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Raleway", sans-serif;
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: myFirstFont;
+            text-align: center;
+        }
+        h3{
+            font-size: large;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: 'Magic Vintage Demo', cursive;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-image-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 110px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+        .profile-image {
+            position: absolute;
+            top: 58%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 122px;
+            height: 122px;
+            border-radius: 60px;
+            object-fit: cover;
+        }
+        .profile-image-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 240px;
+            height: 204px;
+            object-fit: cover;
+        }
+        .mediaCard {
+            background-color: rgb(253, 207, 113);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            color: #000;
+            padding: 15px;
+        }
+        .mediaCard img,
+        .mediaCard video {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .mediaDetails {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .mediaSender {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .mediaCaption {
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .like-comment {
+            display: flex;
+            justify-content: left;
+            width: 100%;
+            margin-top: 0;
+        }
+        .like-comment button {
+            background-color: transparent;
+            padding: 7px 14px;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 7px;
+        }
+        .like-comment button .fa-heart,
+        .like-comment button .fa-comment {
+            color: #450304;
+            font-size: 25px;
+        }
+        .like-comment button.liked .fa-heart,
+        .like-comment button.commented .fa-comment {
+            color: rgb(255, 0, 0);
+        }
+        .comments-container {
+            margin-top: 10px;
+            display: none; /* Initially hidden */
+        }
+        .comment {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        .commenter-name {
+            font-weight: bold;
+            margin-right: 5px;
+            color: #450404;
+        }
+        .comment-text {
+            color: #450404;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .relationship-box {
+            background-color: #400404;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        .like-comment button span {
+            margin-left: 10px; 
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            background-color: rgba(253, 207, 113, 0.2);
+        }
+        .comment-form input,
+        .comment-form textarea {
+            background-color: rgba(253, 207, 113, 0.2);
+            color: #400404;
+            border: 1px solid #400404;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+        .comment-form input::placeholder,
+        .comment-form textarea::placeholder {
+            color: #400404;
+        }
+        .comment-form button {
+            background-color: #450304;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .comment-form button:hover {
+            background-color: rgb(255, 0, 0);
+        }
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .profile-image-wrapper {
+                width: 180px;
+                height: 180px;
+            }
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            .profile-image-svg {
+                width: 200px;
+                height: 180px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+        .delete-comment {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #450404;
+            margin-left: 10px;
+            transition: color 0.3s;
+        }
+        .delete-comment:hover {
+            color: rgb(255, 0, 0);
+        }
+        .custom-btn {
+            display: inline-block;
+            background-color: #FDBB4E;
+            color: #140000;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kaposter</h1>
+    <div class="container">
+        <% if (name && message && profileImage) { %>
+            <div class="profile-image-wrapper">
+                <img id="profileImageSVG" src="/images/photo_frame.svg" alt="Profile Image SVG" class="profile-image-svg" />
+                <img id="profileImage" src="<%= profileImage %>" alt="Profile Image" class="profile-image" />
+            </div>
+            <h2><%= name %></h2>
+            <h3><small><%= dobToDod %></small></h3>
+            <p>" <%= message %> "</p>
+        <% } else { %>
+            <p class="error-message">Profile data is not available</p>
+        <% } %>
+        <a href="/upload/<%= personId %>" class="custom-btn">Take a moment to share your memories</a>
+        <h1>Memories</h1>
+        <div id="mediaContainer"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mediaContainer = document.getElementById('mediaContainer');
+            let imagesData = [];
+
+            fetch(`/api/approved-images/<%= personId %>`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch images');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    imagesData = data.images;
+                    mediaContainer.innerHTML = '';
+
+                    imagesData.forEach((mediaInfo, index) => {
+                        const mediaCard = document.createElement('div');
+                        mediaCard.className = 'mediaCard';
+                        mediaCard.dataset.index = index;
+
+                        const mediaSender = document.createElement('div');
+                        mediaSender.className = 'mediaSender';
+                        mediaSender.innerHTML = `
+                            <span>${mediaInfo.senderName}</span>
+                            <div class="relationship-box">${mediaInfo.relationship}</div>
+                        `;
+                        mediaCard.appendChild(mediaSender);
+
+                        if (mediaInfo.fileType == "image") {
+                            const img = document.createElement('img');
+                            img.src = `${mediaInfo.filePath}`;
+                            img.alt = 'Uploaded Media';
+                            mediaCard.appendChild(img);
+                        } else if (mediaInfo.fileType == "video") {
+                            const video = document.createElement('video');
+                            video.src = `${mediaInfo.filePath}`;
+                            video.controls = true; // Add controls for play, pause, etc.
+                            video.alt = 'Uploaded Video';
+                            mediaCard.appendChild(video);
+                        }
+
+                        const mediaCaption = document.createElement('div');
+                        mediaCaption.className = 'mediaCaption';
+                        mediaCaption.textContent = mediaInfo.caption;
+                        mediaCard.appendChild(mediaCaption);
+
+                        const likeCommentContainer = document.createElement('div');
+                        likeCommentContainer.className = 'like-comment';
+                        mediaCard.appendChild(likeCommentContainer);
+
+                        const likeButton = document.createElement('button');
+                        likeButton.innerHTML = `
+                            <i class="far fa-heart"></i> <span style="color: rgb(0, 0, 0);">${mediaInfo.likes}</span>
+                        `;
+                        likeButton.onclick = function () {
+                            likeImage(mediaInfo._id);
+                            mediaInfo.likes++;
+                            this.innerHTML = `<i class="fas fa-heart"></i> <span style="color: rgb(0, 0, 0);">${mediaInfo.likes}</span>`;
+                            this.classList.toggle('liked');
+                        };
+                        likeCommentContainer.appendChild(likeButton);
+
+                        const commentButton = document.createElement('button');
+                        commentButton.innerHTML = `<i class="far fa-comment"></i>`;
+                        commentButton.onclick = function () {
+                            const commentsContainer = mediaCard.querySelector('.comments-container');
+                            commentsContainer.style.display = commentsContainer.style.display === 'none' ? 'block' : 'none';
+                        };
+                        likeCommentContainer.appendChild(commentButton);
+
+                        const commentsContainer = document.createElement('div');
+                        commentsContainer.className = 'comments-container';
+
+                        mediaInfo.comments.forEach(comment => {
+                            const commentElement = document.createElement('div');
+                            commentElement.className = 'comment';
+                            commentElement.innerHTML = `
+                                <span class="commenter-name">${comment.commenterName}</span>
+                                <span class="comment-text">${comment.comment}</span>
+                                <button class="delete-comment"><i class="fas fa-trash-alt"></i></button>
+                            `;
+                            commentElement.querySelector('.delete-comment').onclick = function () {
+                                deleteComment(mediaInfo._id, comment._id, index, commentElement);
+                            };
+                            commentsContainer.appendChild(commentElement);
+                        });
+
+                        const commentForm = document.createElement('div');
+                        commentForm.className = 'comment-form';
+                        commentForm.innerHTML = `
+                            <input type="text" name="commenterName" placeholder="Your Name" required>
+                            <textarea name="comment" placeholder="Your Comment" required></textarea>
+                            <button type="button">Submit</button>
+                        `;
+                        commentForm.querySelector('button').onclick = function () {
+                            const commenterName = commentForm.querySelector('input[name="commenterName"]').value;
+                            const commentText = commentForm.querySelector('textarea[name="comment"]').value;
+
+                            if (commenterName && commentText) {
+                                commentImage(mediaInfo._id, commenterName, commentText, index);
+                                commentForm.querySelector('input[name="commenterName"]').value = '';
+                                commentForm.querySelector('textarea[name="comment"]').value = '';
+                            }
+                        };
+                        commentsContainer.appendChild(commentForm);
+
+                        mediaCard.appendChild(commentsContainer);
+                        mediaContainer.appendChild(mediaCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching images:', error);
+                    alert('Failed to fetch images. Please try again later.');
+                });
+
+            function likeImage(imageId) {
+                fetch(`/api/like-image/${imageId}`, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        
+                    } else {
+                        alert('Failed to like image');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error liking image:', error);
+                });
+            }
+
+            function commentImage(imageId, commenterName, comment, imageIndex) {
+                console.log(`Sending comment for image index: ${imageIndex}`);
+                fetch(`/api/comment-image/${imageId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ commenterName, comment, imageIndex })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        alert('Failed to add comment');
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        displayComment(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding comment:', error);
+                });
+            }
+
+            function displayComment(data) {
+                console.log('Data received for comment:', data);
+                const { imageIndex, commenterName, comment } = data;
+                const mediaCard = document.querySelector(`.mediaCard[data-index="${imageIndex}"]`);
+                if (!mediaCard) {
+                    console.error('Media card not found for index:', imageIndex);
+                    return;
+                }
+
+                const commentsContainer = mediaCard.querySelector('.comments-container');
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.innerHTML = `
+                    <span class="commenter-name">${commenterName}</span>
+                    <span class="comment-text">${comment}</span>
+                    <button class="delete-comment"><i class="fas fa-trash-alt"></i></button>
+                `;
+                commentElement.querySelector('.delete-comment').onclick = function () {
+                    deleteComment(mediaInfo._id, comment._id, imageIndex, commentElement);
+                };
+                commentsContainer.appendChild(commentElement);
+            }
+
+            function deleteComment(imageId, commentId, imageIndex, commentElement) {
+                fetch(`/api/delete-comment/${imageId}/${commentId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        commentElement.remove();
+                    } else {
+                        alert('Failed to delete comment');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting comment:', error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

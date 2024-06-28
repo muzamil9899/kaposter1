@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaposter</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url('/sansation/Sansation_Regular.ttf');
+        }
+        h1 {
+            font-family: myFirstFont;
+        }
+        body {
+            background: linear-gradient(to right, #140000, #520505);
+            color: rgb(253, 207, 113);
+            font-family: "Raleway", sans-serif;
+            margin: 0;
+            padding: 34px;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        .container {
+            max-width: 100%; /* Ensure container width does not exceed viewport */
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        .text-shadow-sm {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .space-x-4 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            text-align: center;
+        }
+        .text-shadow-md {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .h1, .h2, .h3, p {
+            color: rgb(253, 207, 113);
+        }
+        .p {
+            font-size: 1.5rem;
+            word-spacing: 0.3em;
+            line-height: 1.75;
+        }
+        .nav-link {
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-link:hover {
+            color: rgb(253, 207, 113);
+        }
+        .section {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .section.visible {
+            opacity: 1;
+        }
+        .nav-bar {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .btn-primary {
+            background: rgb(253, 207, 113);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-shadow: none;
+            transition: background 0.3s ease-in-out;
+        }
+        .btn-primary:hover {
+            background: rgb(253, 207, 113);
+        }
+        .box {
+            background-color: rgba(253, 207, 113, 0.2);
+            border: 2px solid rgb(253, 207, 113);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible', 'animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header id="home" class="section py-20 animate__delay-1s">
+        <div class="container mx-auto text-center">
+            <br>
+            <h1 class="text-5xl font-bold text-shadow-md" style="color: rgb(253, 207, 113);">Kaposter</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Section -->
+        <section class="section py-10 animate__delay-2s">
+            <p class="text-lg max-w-2xl mx-auto text-center text-shadow-sm p">
+                Kaposter is a caring online platform that helps you and your loved ones share memories, offer condolences, and find support when someone passes away. Kaposter is here for you during difficult times.
+            </p>
+            
+            <div class="mt-8 space-x-4">
+                <a href="/signup.html" class="btn-primary">Start Creating Eulogies</a>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section id="features" class="section py-10 animate__delay-2s">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-semibold text-center mb-5 text-shadow-md">Key Features</h2>
+                <div class="flex flex-wrap justify-center space-y-4">
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInLeft animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-user-plus fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Account Creation</h3>
+                            <p>User can create account to access the platform to create a unique memorial link</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInRight animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-link fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Sharing Links</h3>
+                            <p>Account holders can share unique links with a group of individuals, allowing them to contribute to a dedicated feed</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInLeft animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-arrow-up-from-bracket fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Memory Uploads</h3>
+                            <p>Account holders can share unique links with a group of individuals, allowing them to contribute to a dedicated feed</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInRight animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-book fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Feed Page</h3>
+                            <p>All uploaded memories are displayed in a chronological feed with captions and images, similar to social media platforms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits" class="section py-10 animate__delay-1s">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-semibold mb-5 text-shadow-md">Benefits</h2>
+                <div class="flex flex-wrap justify-center space-y-4">
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInLeft animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-heart fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Emotional Support</h3>
+                            <p>Kaposter provides a space for individuals to express their emotions, share memories, and offer condolences, fostering a sense of connection and support.</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInRight animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-clock fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Convenience</h3>
+                            <p>The platform's accessibility on mobile and desktop devices ensures that users can participate and contribute from anywhere at any time.</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 lg:w-1/3 px-4 animate__animated animate__fadeInLeft animate__delay-2s">
+                        <div class="p-5 box rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                            <i class="fas fa-lock fa-3x mb-3"></i>
+                            <h3 class="text-2xl font-semibold mb-3 text-shadow-sm">Privacy and Security</h3>
+                            <p>Kaposter prioritizes user privacy and data security, implementing measures to safeguard sensitive information shared on the platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
